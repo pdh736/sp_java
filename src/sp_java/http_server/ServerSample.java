@@ -7,11 +7,12 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 public class ServerSample {
-	public static void main(String[] args) throws Exception {
-		
-		new ServerSample().start();
+	Server server;
+	
+	ServerSample() {
+		server = new Server();
 	}
-
+	
 	public void start() throws Exception {
 		Server server = new Server();
 		ServerConnector http = new ServerConnector(server);
@@ -30,7 +31,9 @@ public class ServerSample {
 		server.setHandler(servletHandler);
 		
 		server.start();
+	}
+	
+	public void join() throws Exception {
 		server.join();
 	}
-
 }
