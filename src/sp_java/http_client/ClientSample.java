@@ -30,7 +30,8 @@ public class ClientSample {
 		
 		Request req = httpClient.newRequest(url).method(HttpMethod.POST);
 		//req.header(HttpHeader.CONTENT_TYPE, "application/json");
-		req.content(new StringContentProvider(content, "utf-8"));
+		if(content != null)
+			req.content(new StringContentProvider(content, "utf-8"));
 		ContentResponse contentRes = req.send();
 		
 		httpClient.stop();
