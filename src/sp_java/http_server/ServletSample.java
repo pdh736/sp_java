@@ -26,13 +26,14 @@ public class ServletSample extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		if (req.getRequestURI().equals("/mypath")) {
-			
 			BufferedReader input = new BufferedReader(new InputStreamReader(req.getInputStream()));
 	        String buffer;
 	        StringBuilder sb = new StringBuilder();
+	        
 	        while ((buffer = input.readLine()) != null) {
 	            sb.append(buffer + "\n");
 	        }
+	        
 	        String strBody = sb.toString();
 	        System.out.print("client say / ");
 	        System.out.println(strBody);
