@@ -7,5 +7,14 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/gson-2.10.1.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-client/9.4.38.v20210224/jetty-client-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-http/9.4.38.v20210224/jetty-http-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-io/9.4.38.v20210224/jetty-io-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-security/9.4.38.v20210224/jetty-security-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-server/9.4.38.v20210224/jetty-server-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-servlet/9.4.38.v20210224/jetty-servlet-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-util/9.4.38.v20210224/jetty-util-9.4.38.v20210224.jar"/>
+	<classpathentry kind="lib" path="/Users/parkdaehee/eclipse-workspace/sp_java/lib/jetty-util-ajax/9.4.38.v20210224/jetty-util-ajax-9.4.38.v20210224.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

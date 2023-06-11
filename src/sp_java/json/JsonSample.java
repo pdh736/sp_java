@@ -1,4 +1,4 @@
-package sp_java;
+package sp_java.json;
 
 import java.io.FileNotFoundException;
 
@@ -15,9 +15,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonSample {
-	
-	
-	
 	public void Sample() {
 		Gson gson = new Gson();
 		//1. parsing json
@@ -179,109 +176,7 @@ public class JsonSample {
 			e.printStackTrace();
 		 }
 	}
-	public static JsonObject jsonStrToJsonObj(String jsonStr) {
-		JsonObject jsonObj = JsonParser.parseString(jsonStr).getAsJsonObject();
-		return jsonObj;
-	}
-	
-	public static JsonArray jsonStrToJsonAry(String jsonStr) {
-		JsonArray jsonAry = JsonParser.parseString(jsonStr).getAsJsonArray();
-		return jsonAry;
-	}
-	
-	public static void printJsonArySample(JsonArray jsonAry) {
-		//String studentArryStr = "[{'id':1, 'name': 'park'}, {'id':2, 'name':'kim'}]";
-		for(int i = 0; i < jsonAry.size(); i++) {
-			JsonObject tmpObj = jsonAry.get(i).getAsJsonObject();
-			/*
-			Set<String> keySet = tmpObj.keySet();
-			for(String key : keySet) {
-				System.out.println(key + " : " + tmpObj.get(key).getAsString());
-			}*/
-			System.out.print("id : ");
-			System.out.print(tmpObj.get("id").getAsInt());
-			System.out.print(" / name : ");
-			System.out.println(tmpObj.get("name").getAsString());
-		}
-	}
-	
-	public static void printJsonObjSample(JsonObject jsonObj) {
-		//String departmentJson = "{'id' : 1, 'name' : 'HR', 'users' : ['park', 'lee', 'kim' ]}";
-		System.out.print("id : ");
-		System.out.print(jsonObj.get("id").getAsInt());
-		System.out.print(" / name : ");
-		System.out.print(jsonObj.get("name").getAsString());
-		System.out.print(" / users : ");
-		JsonArray departUserAry = jsonObj.get("users").getAsJsonArray();
-		for(int i = 0; i < departUserAry.size(); i++) {
-			System.out.print(departUserAry.get(i).getAsString());
-			if(i < departUserAry.size() -1) {
-				System.out.print(", ");
-			}
-			else {
-				System.out.println();
-			}
-		}
-	}
-	
-	public static <T> T jsonStrToObj(String jsonStr, Class<T> cls) {
-		Gson gson = new Gson();
-		return gson.fromJson(jsonStr, cls);
-	}
-	
-	public static <T> ArrayList<T> jsonAryStrToArrayList(String jsonStr, TypeToken<?> type) {
-		//new TypeToken<ArrayList<Student>>() {}
-		Gson gson = new Gson();
-		return gson.fromJson(jsonStr, type.getType());
-	}
-	
-	public static <T> String ObjToJsonStr(T obj) {
-		Gson gson = new Gson();
-		return gson.toJson(obj);
-	}
-	
-	public static <T> void ObjToJsonFile(T obj, String filePath) {
-		Gson gson = new Gson();
-		FileWriter fw;
-		try {
-			fw = new FileWriter(filePath);
-			 gson.toJson(obj, fw);
-		        fw.flush();
-		        fw.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public static <T> T JsonFileToObj(String filePath, Class<T> cls) {
-		Gson gson = new Gson();
-		try {
-			Reader reader = new FileReader(filePath);
-			return gson.fromJson(reader, cls);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	/*
-	Class<T> type;
-	Test(Class<T> cls) {
-		type = cls;
-	}
-	@SuppressWarnings("unchecked")
-	public <T> T jsonStrToObj2(String jsonStr) {
-		Gson gson = new Gson();
-		return (T) gson.fromJson(jsonStr, type);
-	}
-	@SuppressWarnings( "rawtypes" )
-	public ArrayList jsonStrToObj3(String jsonStr) {
-		Gson gson = new Gson();
-		return (ArrayList) gson.fromJson(jsonStr, type.arrayType());
-	}*/
-	
+
 	//reference
 	//https://howtodoinjava.com/gson/gson-parse-json-array/
 	//https://hianna.tistory.com/629#gson3
