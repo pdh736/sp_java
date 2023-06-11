@@ -13,7 +13,7 @@ public class Main {
 		JsonWrapper<Student> jw = new JsonWrapper<Student>() {};
 		
 		Scanner sc = new Scanner(System.in);
-		String path = sc.next();
+		String path = sc.nextLine(); //next는 공백으로도 끊음
 		
 		
 		Path currentPath = Paths.get("");
