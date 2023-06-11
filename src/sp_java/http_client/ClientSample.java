@@ -17,8 +17,8 @@ public class ClientSample {
 		
 		httpClient.stop();
 		
-		System.out.println(contentRes.getContentAsString());
-		System.out.println(contentRes.getHeaders());
+		//System.out.println(contentRes.getContentAsString());
+		//System.out.println(contentRes.getHeaders());
 		
 		return contentRes;
 
