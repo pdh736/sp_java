@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ServletSample extends HttpServlet {
-
+	private String name;
 	private static final long serialVersionUID = 1L;
+	
+	ServletSample(String name) {
+		this.name = name;
+	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		if (req.getRequestURI().equals("/mypath")) {

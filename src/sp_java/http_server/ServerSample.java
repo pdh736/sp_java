@@ -2,14 +2,12 @@ package sp_java.http_server;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 
 public class ServerSample {
-	public static String name;
-	
 	public static void main(String[] args) throws Exception {
-		ServerSample.name = "park";
-		
 		
 		new ServerSample().start();
 	}
@@ -21,10 +19,16 @@ public class ServerSample {
 		http.setPort(8080);
 		server.addConnector(http);
 
+		//ServletHandler servletHandler = new ServletHandler();
+		//servletHandler.addServletWithMapping(ServletSample.class, "/*");
+		//server.setHandler(servletHandler);
+		
+		ServletSample servlet = new ServletSample("Test Server");
+		ServletHolder holder = new ServletHolder(servlet);
 		ServletHandler servletHandler = new ServletHandler();
-		servletHandler.addServletWithMapping(ServletSample.class, "/*");
+		servletHandler.addServletWithMapping(holder, "/*");
 		server.setHandler(servletHandler);
-
+		
 		server.start();
 		server.join();
 	}
