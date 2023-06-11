@@ -1,5 +1,7 @@
 package sp_java;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import sp_java.json.JsonWrapper;
@@ -12,6 +14,11 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		String path = sc.next();
+		
+		
+		Path currentPath = Paths.get("");
+        String absolutepath = currentPath.toAbsolutePath().toString();
+        System.out.println("현재 작업 경로: " + absolutepath);
 	
 	}
 }
