@@ -38,8 +38,8 @@ public class ServletSample extends HttpServlet {
 	        System.out.print("client say / ");
 	        System.out.println(strBody);
 	        
-			res.setStatus(200);
-			res.getWriter().write("Hello! - Post");
+	        res.setStatus(200);
+	        res.getWriter().write("Hello! - Post");
 		}
 	}
 }
