@@ -9,12 +9,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
 
 public class SpUtils {
 	public static String getDateFormat(String format) {//"yyyy-mm-dd_hh-mm-ss"
@@ -99,5 +105,46 @@ public class SpUtils {
 		catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	
+	//////en de coding & hashing
+	static String Base64Encoding(String src){
+		Encoder encoder = Base64.getEncoder();
+		String encodedStr= null;
+		try {
+			encodedStr = encoder.encodeToString(src.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return encodedStr;
+	}
+	
+	static String Base64Decoding(String src) {
+		Decoder decoder = Base64.getDecoder();
+		byte[] decodedBytes = decoder.decode(src);
+		String decodedString= null;
+		try {
+			decodedString = new String(decodedBytes, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return decodedString;
+	}
+	static String Sha256(String input) {
+		MessageDigest mDigest = null;
+		try {
+			mDigest = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		byte[] result = mDigest.digest(input.getBytes());
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < result.length; i ++) {
+			sb.append(Integer.toString( (result[i] & 0xFF)+0x100, 16).substring(1));
+		}
+		
+		return sb.toString();
 	}
 }
