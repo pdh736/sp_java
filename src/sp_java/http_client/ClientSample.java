@@ -1,5 +1,8 @@
 package sp_java.http_client;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.api.ContentResponse;
 import org.eclipse.jetty.client.api.Request;
@@ -9,14 +12,18 @@ import org.eclipse.jetty.http.HttpMethod;
 
 public class ClientSample {
 
-	ContentResponse doGet(String url) throws Exception{
+	ContentResponse doGet(String url){
 		HttpClient httpClient = new HttpClient();
-		httpClient.start();
 		
-		ContentResponse contentRes = httpClient.newRequest(url).method(HttpMethod.GET).send();
 		
-		httpClient.stop();
-		
+		ContentResponse contentRes = null;
+		try {
+			httpClient.start();
+			contentRes = httpClient.newRequest(url).method(HttpMethod.GET).send();
+			httpClient.stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		//System.out.println(contentRes.getContentAsString());
 		//System.out.println(contentRes.getHeaders());
 		
@@ -24,17 +31,24 @@ public class ClientSample {
 
 	}
 	
-	ContentResponse doPost(String url, String content) throws Exception {
+	ContentResponse doPost(String url, String content) {
 		HttpClient httpClient = new HttpClient();
-		httpClient.start();
+		ContentResponse contentRes = null;
+		try {
+			httpClient.start();
+			Request req = httpClient.newRequest(url).method(HttpMethod.POST);
+			//req.header(HttpHeader.CONTENT_TYPE, "application/json");
+			if(content != null)
+				req.content(new StringContentProvider(content, "utf-8"));
+			
+			contentRes = req.send();
+			
+			httpClient.stop();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		Request req = httpClient.newRequest(url).method(HttpMethod.POST);
-		//req.header(HttpHeader.CONTENT_TYPE, "application/json");
-		if(content != null)
-			req.content(new StringContentProvider(content, "utf-8"));
-		ContentResponse contentRes = req.send();
-		
-		httpClient.stop();
 		//System.out.println(contentRes.getContentAsString());
 		//System.out.println(contentRes.getHeaders());
 		

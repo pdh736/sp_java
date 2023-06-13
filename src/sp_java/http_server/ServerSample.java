@@ -8,16 +8,18 @@ import org.eclipse.jetty.servlet.ServletHolder;
 
 public class ServerSample {
 	Server server;
+	int port;
 	
-	ServerSample() {
-		server = new Server();
+	ServerSample(int port) {
+		this.server = new Server();
+		this.port = port;
 	}
 	
-	public void start() throws Exception {
-		Server server = new Server();
+	public void start() {
+		server = new Server();
 		ServerConnector http = new ServerConnector(server);
 		http.setHost("127.0.0.1");
-		http.setPort(8080);
+		http.setPort(this.port);
 		server.addConnector(http);
 
 		//ServletHandler servletHandler = new ServletHandler();
@@ -30,10 +32,16 @@ public class ServerSample {
 		servletHandler.addServletWithMapping(holder, "/*");
 		server.setHandler(servletHandler);
 		
-		server.start();
+		try {
+			server.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void join() throws Exception {
+		server.stop();
 		server.join();
 	}
 }

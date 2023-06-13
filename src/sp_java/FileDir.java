@@ -1,6 +1,7 @@
 package sp_java;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class FileDir {
 	static void FileDirList() {
@@ -17,16 +18,15 @@ public class FileDir {
 		}
 	}
 	
-	static void FileSearchAll(String path) {
-		File dir = new File(path);
-		File[] fList = dir.listFiles();
-		
+	static void FileSearchAll(String path, ArrayList<File> fileList) {
+		File directory = new File(path);
+		File[] fList = directory.listFiles();
 		for (File file : fList) {
 			if (file.isDirectory()) {
-				FileSearchAll(file.getPath());
+				FileSearchAll(file.getPath(), fileList);
 			}
 			else {
-				System.out.println(file.getName());
+				fileList.add(file);
 			}
 		}
 	}

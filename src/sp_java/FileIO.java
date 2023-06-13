@@ -33,6 +33,7 @@ public class FileIO {
 	static public void CopyFile(String inputFile, String outputFile) {
 		final int BUFFER_SIZE = 4096;
 		int readLen;
+		//String[] paths = outputFile.split("\\\\"); //경로는 split \\\\ 으로 해야함
 		try {
 			InputStream inputStream = new FileInputStream(inputFile);
 			OutputStream outputStream = new FileOutputStream(outputFile);
