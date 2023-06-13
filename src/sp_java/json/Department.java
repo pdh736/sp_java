@@ -2,8 +2,12 @@ package sp_java.json;
 
 import java.util.ArrayList;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Department {
-	public int id;
+	@SerializedName(value = "id")
+	public int id; //when key name start num ex) 1st , use @SerializedName 
+	@SerializedName(value = "name")
 	public String name;
 	public ArrayList<String> users;
 	
@@ -17,7 +21,6 @@ public class Department {
 		users.add("park");
 		users.add("kim");
 	}
-	
 	
 	@Override
 	public String toString() {

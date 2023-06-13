@@ -92,7 +92,8 @@ public class JsonSample {
 		jsonObject.add("children", jsonAryChildren);
 		 
 		jsonObject.add("address", null);	
-		 		 
+		
+		//write file
 		FileWriter fw;
 		try {
 			fw = new FileWriter("sample.json");
@@ -101,7 +102,6 @@ public class JsonSample {
 			bw.close();
 			fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -187,7 +187,6 @@ public class JsonSample {
 	        fw.flush();
 	        fw.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -217,7 +216,6 @@ public class JsonSample {
 		    fw.flush();
 		    fw.close();
 		 } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		 }
 		 //아래 방법도 가능
@@ -229,7 +227,6 @@ public class JsonSample {
 			bw.close();
 			fw2.close();
 		 } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		 }
 	}
@@ -243,13 +240,53 @@ public class JsonSample {
 			Student student = gson.fromJson(reader, Student.class);
 			System.out.println(student);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 	
-	//TODO add jsonFileToJsonObject
+	public void jsonFileToJsonObject() {
+		try {
+			Reader reader = new FileReader("./sample.json");
+			JsonObject obj = JsonParser.parseReader(reader).getAsJsonObject();
+			
+			//print key set
+			System.out.println(obj.keySet());
+			for(String key : obj.keySet()) {
+				System.out.print("Key : " + key +" / Value Type : ");
+				switch(obj.get(key).getClass().getName()) {
+				case "com.google.gson.JsonPrimitive" :
+					//System.out.println("primitive");
+					if(obj.get(key).getAsJsonPrimitive().isString()) {
+						System.out.println("String");
+					}else if(obj.get(key).getAsJsonPrimitive().isBoolean()) {
+						System.out.println("Bool");
+					}else if(obj.get(key).getAsJsonPrimitive().isNumber()) {
+						System.out.println("Number");
+					}
+					break;
+				case "com.google.gson.JsonArray":
+					System.out.println("JsonArray");
+					break;
+				case "com.google.gson.JsonObject":
+					System.out.println("JsonObject");
+					break;
+				case "com.google.gson.JsonNull":
+					System.out.println("JsonNull");
+					break;
+				}
+				//아래 형태도 가능
+				/*
+				JsonElement je = jsonObj.get(key);
+				if (je.isJsonPrimitive()) {
+				}
+				else if (je.isJsonArray()) {
+				}
+				*/
+			}
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	//reference
 	//https://howtodoinjava.com/gson/gson-parse-json-array/
@@ -258,4 +295,6 @@ public class JsonSample {
 	//https://kim-jong-hyun.tistory.com/61
 	//https://mikelim.mintocean.com/entry/Gson%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%98%EC%97%AC-JSON-Array%EB%A5%BC-List%EB%A1%9C-%EB%A7%88%EC%83%AC%EB%A7%81
 	
+	//@SerializedName(value = "1st")
+	//https://cherrypick.co.kr/gson-serializedname-annotation/
 }
