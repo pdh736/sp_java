@@ -1,4 +1,4 @@
-package sp_java;
+package sp_java.thread;
 
 class ThreadRunnableSample implements Runnable{
 	public void run() {
