@@ -1,7 +1,7 @@
 package sp_java.json;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,14 +9,14 @@ import java.io.Reader;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 public class JsonSample {
-	public void Sample() {
-		Gson gson = new Gson();
+	public void jsonParsing() {
 		//1. parsing json
 		//1-1 default
 		System.out.println("json string parsing");
@@ -60,8 +60,54 @@ public class JsonSample {
 				System.out.println();
 			}
 		}
-		System.out.println("----------");
-			
+	}
+	
+	public void makeJsonObject() {
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("name", "spiderman");
+		jsonObject.addProperty("age", 45);
+		jsonObject.addProperty("married", true);
+		JsonArray jsonArySpecial = new JsonArray();
+		jsonArySpecial.add("martial art");
+		jsonArySpecial.add("gun");
+		jsonObject.add("speciality", jsonArySpecial);
+		 
+		JsonObject jsonObjectVaccine = new JsonObject();
+		jsonObjectVaccine.addProperty("1st", "done");
+		jsonObjectVaccine.addProperty("2nd", "expected");
+		jsonObjectVaccine.add("3rd", null);
+		 
+		jsonObject.add("vaccine", jsonObjectVaccine);
+		 
+		JsonArray jsonAryChildren = new JsonArray();
+		JsonObject children1 = new JsonObject();
+		children1.addProperty("name", "sipderboy");
+		children1.addProperty("age", 10);
+		 
+		JsonObject children2 = new JsonObject();
+		children2.addProperty("name", "spidergirl");
+		children2.addProperty("age", 8);
+		jsonAryChildren.add(children2);
+		jsonAryChildren.add(children1);
+		jsonObject.add("children", jsonAryChildren);
+		 
+		jsonObject.add("address", null);	
+		 		 
+		FileWriter fw;
+		try {
+			fw = new FileWriter("sample.json");
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(jsonObject.toString());
+			bw.close();
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void jsonToObject() {
+		Gson gson = new Gson();
 		//2. json to object
 		//2-1 default
 		System.out.println("json string to object");
@@ -92,6 +138,10 @@ public class JsonSample {
 		System.out.println(lesson);
 		System.out.println("-------------");
 		
+	}
+	
+	public void objectToJson() {
+		Gson gson = new Gson();
 		//3. object to json
 		//3-1 default
 		System.out.println("object to json");
@@ -123,32 +173,27 @@ public class JsonSample {
 		String lessonJson2 = gson.toJson(lesson2);
 		System.out.println(lessonJson2);
 		System.out.println("------------");
-		
+	}
+	
+	public void objectToJsonFile() {
+		 Gson gsonUseNull = new GsonBuilder().serializeNulls().create();
 		//4. object to json file
 		System.out.println("object to json file");
 		Student student4 = new Student(4, "lee");
 		FileWriter fw;
 		try {
 			fw = new FileWriter("./student.json");
-			 gson.toJson(student4, fw);
-		        fw.flush();
-		        fw.close();
+			gsonUseNull.toJson(student4, fw);
+	        fw.flush();
+	        fw.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// json file to object
-		System.out.println("json file to object");
-		 try {
-			Reader reader = new FileReader("./student.json");
-			Student student4_2 =gson.fromJson(reader, Student.class);
-			System.out.println(student4_2);
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 
+	}
+	
+	public void jsonObjToJsonFile() {
+		 Gson gsonUseNull = new GsonBuilder().serializeNulls().create();
 		 System.out.println("json object to json file");
 		 JsonObject jsonObject = new JsonObject();
 		 jsonObject.addProperty("name", "japanes");
@@ -165,18 +210,47 @@ public class JsonSample {
 		 
 		 jsonObject.add("students", jsonArySt);
 		 
+		 FileWriter fw;
+		 try {
+			fw = new FileWriter("./lesson.json");
+			gsonUseNull.toJson(jsonObject, fw);
+		    fw.flush();
+		    fw.close();
+		 } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		 }
+		 //아래 방법도 가능
 		 FileWriter fw2;
 		 try {
-			fw2 = new FileWriter("./lesson.json");
-		    gson.toJson(jsonObject, fw2);
-		    fw2.flush();
-		    fw2.close();
+			fw2 = new FileWriter("sample.json");
+			BufferedWriter bw = new BufferedWriter(fw2);
+			bw.write(jsonObject.toString());
+			bw.close();
+			fw2.close();
 		 } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		 }
 	}
-
+	
+	public void jsonFileToObject() {
+		Gson gson = new Gson();
+		// json file to object
+		System.out.println("json file to object");
+		 try {
+			Reader reader = new FileReader("./student.json");
+			Student student = gson.fromJson(reader, Student.class);
+			System.out.println(student);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//TODO add jsonFileToJsonObject
+	
 	//reference
 	//https://howtodoinjava.com/gson/gson-parse-json-array/
 	//https://hianna.tistory.com/629#gson3
