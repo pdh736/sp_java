@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Department {
 	@SerializedName(value = "id")
-	public int id; //when key name start num ex) 1st , use @SerializedName 
+	public int id; //when key name start number ex) 1st , use @SerializedName 
 	@SerializedName(value = "name")
 	public String name;
 	public ArrayList<String> users;

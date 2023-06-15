@@ -18,7 +18,7 @@ import com.google.gson.reflect.TypeToken;
 
 /*
  * usage example
- 	JsonWrapper<Lesson> jw = new JsonWrapper<Lesson>() {};  //익명클래스로 사용해야함
+ 	JsonWrapper<Lesson> jw = new JsonWrapper<Lesson>() {};  //Must be used as an anonymous class
 	Lesson l = jw.jsonStrToObj(lessonJsonStr);
 	jw.ObjToJsonFile(l, "./Lesson.json");
 	Lesson l2 = jw.JsonFileToObj("./Lesson.json");
@@ -58,8 +58,21 @@ public class JsonWrapper <T>{
 		 return gson.fromJson(jsonStr, TypeToken.getParameterized(ArrayList.class, this.type).getType());
 	 }
 	 
+	 public String jsonObjToJsonStr(JsonObject jsonObj) {
+		 return jsonObj.getAsString();
+	 }
+	 
+	 public T jsonObjToObj(JsonObject jsonObj) {
+		 return gson.fromJson(jsonObj, this.type);
+	 }
+	 
 	 public String objToJsonStr(T obj) {
-		return gson.toJson(obj);
+		 return gson.toJson(obj);
+	 }
+	 
+	 public JsonObject objToJsonObj(T obj) {
+		 JsonObject jsonObj = JsonParser.parseString(gson.toJson(obj)).getAsJsonObject();
+		 return jsonObj;
 	 }
 	 
 	 public void objToJsonFile(T obj, String filePath) {
@@ -74,6 +87,16 @@ public class JsonWrapper <T>{
 			 e.printStackTrace();
 		 }
 	}
+
+	 public T jsonFileToObj(String filePath) {
+		 try {
+			 Reader reader = new FileReader(filePath);
+			 return gson.fromJson(reader, type);
+		 } catch (FileNotFoundException e) {
+			 e.printStackTrace();
+			 return null;
+		}
+	 }
 	 
 	 public void jsonObjToJsonFile(JsonObject obj, String path) {
 		 FileWriter fw;
@@ -87,16 +110,6 @@ public class JsonWrapper <T>{
 			e.printStackTrace();
 		 }
 	}
-		
-	 public T jsonFileToObj(String filePath) {
-		 try {
-			 Reader reader = new FileReader(filePath);
-			 return gson.fromJson(reader, type);
-		 } catch (FileNotFoundException e) {
-			 e.printStackTrace();
-			 return null;
-		}
-	 }
 	 
 	public JsonObject jsonFileToJsonObj(String filePath) {
 		Reader reader;

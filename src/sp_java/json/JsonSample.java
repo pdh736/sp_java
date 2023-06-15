@@ -274,7 +274,7 @@ public class JsonSample {
 					System.out.println("JsonNull");
 					break;
 				}
-				//아래 형태도 가능
+				//Also available in the form below
 				/*
 				JsonElement je = jsonObj.get(key);
 				if (je.isJsonPrimitive()) {

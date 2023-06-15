@@ -35,7 +35,6 @@ public class ServerSample {
 		try {
 			server.start();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
